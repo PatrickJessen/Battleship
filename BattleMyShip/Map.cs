@@ -12,10 +12,6 @@ namespace BattleMyShip
         public int Width { get; set; }
         public int Height { get; set; }
 
-        public Map()
-        {
-
-        }
         public Map(int width, int height)
         {
             Width = width;

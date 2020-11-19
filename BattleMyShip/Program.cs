@@ -14,12 +14,14 @@ namespace BattleMyShip
             Ship ship2 = new Ship(4, 'x');
 
             Map map = new Map(10, 20);
-
-            map.PlaceShip(5, 5, ship2, false);
-            map.PlaceShip(5, 5, ship, false);
-
-            Console.WriteLine(map.DrawMap());
-            Console.ReadLine();
+            GameLogic logic = new GameLogic();
+            while (true)
+            {
+                logic.PlaceShip(ship2, map, false);
+                Console.WriteLine(map.DrawMap());
+                Console.ReadLine();
+                Console.Clear();
+            }
         }
     }
 }
