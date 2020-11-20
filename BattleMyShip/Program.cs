@@ -8,6 +8,7 @@ namespace BattleMyShip
 {
     class Program
     {
+        static bool test = true;
         static void Main(string[] args)
         {
             Ship ship = new Ship(4, 'd');
@@ -17,10 +18,13 @@ namespace BattleMyShip
             GameLogic logic = new GameLogic();
             while (true)
             {
-                logic.PlaceShip(ship2, map, false);
+                //logic.PlaceShip(ship2, map, false);
                 Console.WriteLine(map.DrawMap());
-                Console.ReadLine();
-                Console.Clear();
+                if (test == true)
+                {
+
+                    logic.HandleKeys(ship2, map);
+                }
             }
         }
     }
