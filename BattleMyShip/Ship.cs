@@ -10,11 +10,13 @@ namespace BattleMyShip
     {
         public int ShipLength { get; set; }
         public char ShipCharacter { get; set; }
+        public ConsoleColor ShipColor { get; set; }
         
-        public Ship(int shipLength, char ShipCharacter)
+        public Ship(int shipLength, char ShipCharacter, ConsoleColor shipColor)
         {
             this.ShipLength = shipLength;
             this.ShipCharacter = ShipCharacter;
+            this.ShipColor = shipColor;
         }
     }
 }
