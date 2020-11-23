@@ -57,7 +57,6 @@ namespace BattleMyShip
             }
             if (isPlaced == true)
             {
-                Console.ForegroundColor = shipList[counter].ShipColor;
                 counter++;
             }
             return false;
@@ -155,6 +154,18 @@ namespace BattleMyShip
             else
             {
                 return false;
+            }
+        }
+
+        public ConsoleColor SetShipColor(Map map)
+        {
+            if (map.MapArray[pos.x, pos.y].MapField != shipList[counter].ShipCharacter.ToString())
+            {
+                return shipList[counter].ShipColor;
+            }
+            else
+            {
+                return ConsoleColor.White;
             }
         }
     }

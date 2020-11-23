@@ -27,25 +27,6 @@ namespace BattleMyShip
             }
         }
 
-        public string DrawMap()
-        {
-            string combString = string.Empty;
-            for(int x = 0; x < MapArray.GetLength(0); x++)
-            {
-                for(int y = 0; y < MapArray.GetLength(1); y++)
-                {
-                    if (MapArray[x, y].ship != null)
-                    {
-                        combString += MapArray[x, y].ship.ShipCharacter;
-                    }
-                    else
-                    {
-                        combString += MapArray[x, y].MapField;
-                    }
-                }
-                combString += "\n";
-            }
-            return combString;
-        }
+     
     }
 }
