@@ -42,8 +42,8 @@ namespace BattleMyShip
                     }
                 }
                 else if (rotate == false)
-                { 
-                    if (map.MapArray[pos.x, pos.y + i].ship != shipList[0] && map.MapArray[pos.x, pos.y + i].ship != shipList[1] && map.MapArray[pos.x, pos.y + i].ship != shipList[2] && map.MapArray[pos.x, pos.y + i].ship != shipList[3] && map.MapArray[pos.x, pos.y + i].ship != shipList[4] && map.MapArray[pos.x, pos.y + i].ship != shipList[5])
+                {
+                    if (map.MapArray[pos.x, pos.y + i].ship == null)
                     {
                         //x, y byttes om i array... x = y, y = x
                         map.MapArray[pos.x, pos.y + i].isPlaced = isPlaced;
@@ -110,39 +110,37 @@ namespace BattleMyShip
                 }
             }
         }
-
-        private void IsXFieldEmpty(Map map, bool isPlaced)
+        // map.MapArray[pos.x, pos.y + i].ship != shipList[0] && map.MapArray[pos.x, pos.y + i].ship != shipList[1] && map.MapArray[pos.x, pos.y + i].ship != shipList[2] && map.MapArray[pos.x, pos.y + i].ship != shipList[3] && map.MapArray[pos.x, pos.y + i].ship != shipList[4] && map.MapArray[pos.x, pos.y].ship != shipList[5]
+        private void IsXFieldEmpty(Map map, int i, bool isPlaced)
         {
-            for (int j = 0; j < shipList[counter].ShipLength; j++)
+            if (map.MapArray[pos.x, pos.y + i].ship == null)
             {
-                if (map.MapArray[pos.x, pos.y + j].ship != shipList[0] && map.MapArray[pos.x, pos.y + j].ship != shipList[1] && map.MapArray[pos.x, pos.y + j].ship != shipList[2])
-                {
-                    //x, y byttes om i array... x = y, y = x
-                    map.MapArray[pos.x, pos.y + j].isPlaced = isPlaced;
-                    map.MapArray[pos.x, pos.y + j].ship = shipList[counter];
-                }
-                else
-                {
-                    isPlaced = false;
-                }
+                //x, y byttes om i array... x = y, y = x
+                map.MapArray[pos.x, pos.y + i].isPlaced = isPlaced;
+                map.MapArray[pos.x, pos.y + i].ship = shipList[counter];
+            }
+            else
+            {
+                isPlaced = false;
             }
         }
 
-        private void IsYFieldEmpty(Map map, bool isPlaced)
+        private bool IsYFieldEmpty(Map map)
         {
-            for (int j = 0; j < shipList[counter].ShipLength; j++)
+            bool temp = true;
+            for (int i = 0; i < shipList[counter].ShipLength; i++)
             {
-                if (map.MapArray[pos.x + j, pos.y].ship != shipList[0] && map.MapArray[pos.x + j, pos.y].ship != shipList[1] && map.MapArray[pos.x + j, pos.y].ship != shipList[2])
+                if (map.MapArray[pos.x + i, pos.y].ship != shipList[0] && map.MapArray[pos.x + i, pos.y].ship != shipList[1] && map.MapArray[pos.x + i, pos.y].ship != shipList[2] && map.MapArray[pos.x + i, pos.y].ship != shipList[3] && map.MapArray[pos.x + i, pos.y].ship != shipList[4] && map.MapArray[pos.x + i, pos.y].ship != shipList[5])
                 {
                     //x, y byttes om i array... x = y, y = x
-                    map.MapArray[pos.x + j, pos.y].isPlaced = isPlaced;
-                    map.MapArray[pos.x + j, pos.y].ship = shipList[counter];
+                    temp = true;
                 }
                 else
                 {
-                    isPlaced = false;
+                    temp = false;
                 }
             }
+            return temp;
         }
 
         public bool ChangeTurn()
@@ -154,18 +152,6 @@ namespace BattleMyShip
             else
             {
                 return false;
-            }
-        }
-
-        public ConsoleColor SetShipColor(Map map)
-        {
-            if (map.MapArray[pos.x, pos.y].MapField != shipList[counter].ShipCharacter.ToString())
-            {
-                return shipList[counter].ShipColor;
-            }
-            else
-            {
-                return ConsoleColor.White;
             }
         }
     }

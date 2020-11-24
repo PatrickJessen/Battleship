@@ -22,11 +22,6 @@ namespace BattleMyShip
             }
             DrawMap(playerOneMap);
             DrawMap(playerTwoMap);
-
-            //Console.WriteLine(playerOneMap.DrawMap(Console.ForegroundColor));
-            //Console.WriteLine(playerTwoMap.DrawMap(Console.ForegroundColor));
-            //Console.WriteLine(playerOneMap.DrawMap());
-            //Console.WriteLine(playerTwoMap.DrawMap());
             Console.ReadLine();
         }
 
@@ -34,10 +29,10 @@ namespace BattleMyShip
         {
             if (logic.ChangeTurn() == true)
             {
+                Console.ResetColor();
                 Console.WriteLine("Player 1");
                 DrawMap(playerOneMap);
                 logic.HandleKeys(playerOneMap);
-                Console.ForegroundColor = logic.SetShipColor(playerOneMap);
             }
         }
 
@@ -45,10 +40,10 @@ namespace BattleMyShip
         {
             if (logic.ChangeTurn() == false)
             {
+                Console.ResetColor();
                 Console.WriteLine("Player 2");
                 DrawMap(playerTwoMap);
                 logic.HandleKeys(playerTwoMap);
-                Console.ForegroundColor = logic.SetShipColor(playerTwoMap);
             }
         }
 
