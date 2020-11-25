@@ -27,6 +27,19 @@ namespace BattleMyShip
             }
         }
 
-     
+        public void ClearMap()
+        {
+            for (int x = 0; x < MapArray.GetLength(0); x++)
+            {
+                for (int y = 0; y < MapArray.GetLength(1); y++)
+                {
+                    if (MapArray[x, y].isPlaced == false)
+                    {
+                        MapArray[x, y].ship = null;
+                        //map.MapArray[x, y].MapField = ".";
+                    }
+                }
+            }
+        }
     }
 }
