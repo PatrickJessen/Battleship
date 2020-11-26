@@ -16,15 +16,25 @@ namespace BattleMyShip
         public void GameLoop()
         {
             logic.AddShipToList();
-            while (logic.counter < logic.shipList.Count)
+            while (true)
             {
-                PlayerOne();
-                PlayerTwo();
+                if (logic.counter < logic.shipList.Count)
+                {
+                    PlayerOne();
+                    PlayerTwo();
+                }
+                else
+                {
+                    DrawMap(playerOneMap);
+                    Console.WriteLine();
+                    DrawMap(playerTwoMap);
+                    Console.ReadLine();
+                }
+                if (true)
+                {
+
+                }
             }
-            DrawMap(playerOneMap);
-            Console.WriteLine();
-            DrawMap(playerTwoMap);
-            Console.ReadLine();
         }
 
         public void PlayerOne()

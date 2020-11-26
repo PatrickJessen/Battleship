@@ -46,6 +46,7 @@
     <Compile Include="Draw.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="GameLogic.cs" />
+    <Compile Include="Input.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

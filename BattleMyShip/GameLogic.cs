@@ -11,6 +11,7 @@ namespace BattleMyShip
     {
         bool rotate;
         ShipPosition pos = new ShipPosition();
+        ShipPosition navPos = new ShipPosition();
         public List<Ship> shipList = new List<Ship>();
         public int counter = 0;
         public void AddShipToList()
@@ -27,13 +28,13 @@ namespace BattleMyShip
             map.ClearMap();
             for (int i = 0; i < shipList[counter].ShipLength; i++)
             {
-                if (rotate == true && IsSpotEmpty(map))
+                if (rotate == true)
                 {
                     //x, y byttes om i array... x = y, y = x
                     map.MapArray[pos.x + i, pos.y].isPlaced = isPlaced;
                     map.MapArray[pos.x + i, pos.y].ship = shipList[counter];
                 }
-                else if (rotate == false && IsSpotEmpty(map))
+                else if (rotate == false)
                 {
                     //x, y byttes om i array... x = y, y = x
                     map.MapArray[pos.x, pos.y + i].isPlaced = isPlaced;
@@ -53,40 +54,87 @@ namespace BattleMyShip
 
         public void HandleKeys(Map map)
         {
-            ConsoleKeyInfo keyInfo = Console.ReadKey();
-            switch (keyInfo.Key)
+            //ConsoleKeyInfo keyInfo = Console.ReadKey();
+            //switch (keyInfo.Key)
+            //{
+            //    case ConsoleKey.UpArrow:
+            //        Console.SetCursorPosition(pos.y, pos.x);
+            //        pos.x--;
+            //        if (IsSpotEmpty(map))
+            //            PlaceShip(map, false);
+            //        break;
+            //    case ConsoleKey.DownArrow:
+            //        Console.SetCursorPosition(pos.y, pos.x);
+            //        pos.x++;
+            //        if (IsSpotEmpty(map))
+            //            PlaceShip(map, false);
+            //        break;
+            //    case ConsoleKey.LeftArrow:
+            //        Console.SetCursorPosition(pos.y, pos.x);
+            //        pos.y--;
+            //        if (IsSpotEmpty(map))
+            //            PlaceShip(map, false);
+            //        break;
+            //    case ConsoleKey.RightArrow:
+            //        Console.SetCursorPosition(pos.y, pos.x);
+            //        pos.y++;
+            //        if (IsSpotEmpty(map))
+            //            PlaceShip(map, false);
+            //        break;
+            //    case ConsoleKey.B:
+            //        rotate = true;
+            //        break;
+            //    case ConsoleKey.N:
+            //        rotate = false;
+            //        break;
+            //    case ConsoleKey.Enter:
+            //        if (IsSpotEmpty(map))
+            //            PlaceShip(map, true);
+            //        break;
+            //}
+            //Console.SetCursorPosition(0, 0);
+            if (Input.InputCheck(ConsoleKey.UpArrow))
             {
-                case ConsoleKey.UpArrow:
-                    Console.SetCursorPosition(pos.y, pos.x);
-                    pos.x--;
-                    PlaceShip(map, false);
-                    break;
-                case ConsoleKey.DownArrow:
-                    Console.SetCursorPosition(pos.y, pos.x);
-                    pos.x++;
-                    PlaceShip(map, false);
-                    break;
-                case ConsoleKey.LeftArrow:
-                    Console.SetCursorPosition(pos.y, pos.x);
-                    pos.y--;
-                    PlaceShip(map, false);
-                    break;
-                case ConsoleKey.RightArrow:
-                    Console.SetCursorPosition(pos.y, pos.x);
-                    pos.y++;
-                    PlaceShip(map, false);
-                    break;
-                case ConsoleKey.B:
-                    rotate = true;
-                    break;
-                case ConsoleKey.N:
-                    rotate = false;
-                    break;
-                case ConsoleKey.Enter:
-                    PlaceShip(map, true);
-                    break;
+                Console.SetCursorPosition(pos.y, pos.x);
+                pos.x--;
+                if (IsSpotEmpty(map))
+                PlaceShip(map, false);
             }
-            Console.Clear();
+            else if (Input.InputCheck(ConsoleKey.DownArrow))
+            {
+                Console.SetCursorPosition(pos.y, pos.x);
+                pos.x++;
+                if (IsSpotEmpty(map))
+                    PlaceShip(map, false);
+            }
+            else if (Input.InputCheck(ConsoleKey.LeftArrow))
+            {
+                Console.SetCursorPosition(pos.y, pos.x);
+                pos.y--;
+                if (IsSpotEmpty(map))
+                    PlaceShip(map, false);
+            }
+            else if (Input.InputCheck(ConsoleKey.RightArrow))
+            {
+                Console.SetCursorPosition(pos.y, pos.x);
+                pos.y++;
+                if (IsSpotEmpty(map))
+                    PlaceShip(map, false);
+            }
+            else if (Input.InputCheck(ConsoleKey.B))
+            {
+                rotate = true;
+            }
+            else if (Input.InputCheck(ConsoleKey.N))
+            {
+                rotate = false;
+            }
+            else if (Input.InputCheck(ConsoleKey.Enter))
+            {
+                if (IsSpotEmpty(map))
+                    PlaceShip(map, true);
+            }
+            //Console.SetCursorPosition(0, 0);
         }
 
         public bool ChangeTurn()
@@ -144,6 +192,11 @@ namespace BattleMyShip
             {
                 pos.x -= 1;
             }
+        }
+
+        public void ShootShip(Map map)
+        {
+
         }
     }
 }
