@@ -24,35 +24,24 @@ namespace BattleMyShip
         }
         private bool PlaceShip(Map map, bool isPlaced)
         {
-            //AddShipToList();
-            ClearMap(map);
+            map.ClearMap();
             for (int i = 0; i < shipList[counter].ShipLength; i++)
             {
-                if (rotate == true)
+                if (rotate == true && IsSpotEmpty(map))
                 {
-                    if (map.MapArray[pos.x + i, pos.y].ship != shipList[0] && map.MapArray[pos.x + i, pos.y].ship != shipList[1] && map.MapArray[pos.x + i, pos.y].ship != shipList[2] && map.MapArray[pos.x + i, pos.y].ship != shipList[3] && map.MapArray[pos.x + i, pos.y].ship != shipList[4] && map.MapArray[pos.x + i, pos.y].ship != shipList[5])
-                    {
-                        //x, y byttes om i array... x = y, y = x
-                        map.MapArray[pos.x + i, pos.y].isPlaced = isPlaced;
-                        map.MapArray[pos.x + i, pos.y].ship = shipList[counter];
-                    }
-                    else
-                    {
-                        isPlaced = false;
-                    }
+                    //x, y byttes om i array... x = y, y = x
+                    map.MapArray[pos.x + i, pos.y].isPlaced = isPlaced;
+                    map.MapArray[pos.x + i, pos.y].ship = shipList[counter];
                 }
-                else if (rotate == false)
+                else if (rotate == false && IsSpotEmpty(map))
                 {
-                    if (map.MapArray[pos.x, pos.y + i].ship == null)
-                    {
-                        //x, y byttes om i array... x = y, y = x
-                        map.MapArray[pos.x, pos.y + i].isPlaced = isPlaced;
-                        map.MapArray[pos.x, pos.y + i].ship = shipList[counter];
-                    }
-                    else
-                    {
-                        isPlaced = false;
-                    }
+                    //x, y byttes om i array... x = y, y = x
+                    map.MapArray[pos.x, pos.y + i].isPlaced = isPlaced;
+                    map.MapArray[pos.x, pos.y + i].ship = shipList[counter];
+                }
+                else
+                {
+                    isPlaced = false;
                 }
             }
             if (isPlaced == true)
@@ -68,19 +57,23 @@ namespace BattleMyShip
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
-                    Console.SetCursorPosition(pos.x--, pos.y);
+                    Console.SetCursorPosition(pos.y, pos.x);
+                    pos.x--;
                     PlaceShip(map, false);
                     break;
                 case ConsoleKey.DownArrow:
-                    Console.SetCursorPosition(pos.x++, pos.y);
+                    Console.SetCursorPosition(pos.y, pos.x);
+                    pos.x++;
                     PlaceShip(map, false);
                     break;
                 case ConsoleKey.LeftArrow:
-                    Console.SetCursorPosition(pos.x, pos.y--);
+                    Console.SetCursorPosition(pos.y, pos.x);
+                    pos.y--;
                     PlaceShip(map, false);
                     break;
                 case ConsoleKey.RightArrow:
-                    Console.SetCursorPosition(pos.x, pos.y++);
+                    Console.SetCursorPosition(pos.y, pos.x);
+                    pos.y++;
                     PlaceShip(map, false);
                     break;
                 case ConsoleKey.B:
@@ -96,53 +89,6 @@ namespace BattleMyShip
             Console.Clear();
         }
 
-        public void ClearMap(Map map)
-        {
-            for(int x = 0; x < map.MapArray.GetLength(0); x++)
-            {
-                for(int y = 0; y < map.MapArray.GetLength(1); y++)
-                {
-                    if (map.MapArray[x, y].isPlaced == false)
-                    {
-                        map.MapArray[x, y].ship = null;
-                        //map.MapArray[x, y].MapField = ".";
-                    }
-                }
-            }
-        }
-        // map.MapArray[pos.x, pos.y + i].ship != shipList[0] && map.MapArray[pos.x, pos.y + i].ship != shipList[1] && map.MapArray[pos.x, pos.y + i].ship != shipList[2] && map.MapArray[pos.x, pos.y + i].ship != shipList[3] && map.MapArray[pos.x, pos.y + i].ship != shipList[4] && map.MapArray[pos.x, pos.y].ship != shipList[5]
-        private void IsXFieldEmpty(Map map, int i, bool isPlaced)
-        {
-            if (map.MapArray[pos.x, pos.y + i].ship == null)
-            {
-                //x, y byttes om i array... x = y, y = x
-                map.MapArray[pos.x, pos.y + i].isPlaced = isPlaced;
-                map.MapArray[pos.x, pos.y + i].ship = shipList[counter];
-            }
-            else
-            {
-                isPlaced = false;
-            }
-        }
-
-        private bool IsYFieldEmpty(Map map)
-        {
-            bool temp = true;
-            for (int i = 0; i < shipList[counter].ShipLength; i++)
-            {
-                if (map.MapArray[pos.x + i, pos.y].ship != shipList[0] && map.MapArray[pos.x + i, pos.y].ship != shipList[1] && map.MapArray[pos.x + i, pos.y].ship != shipList[2] && map.MapArray[pos.x + i, pos.y].ship != shipList[3] && map.MapArray[pos.x + i, pos.y].ship != shipList[4] && map.MapArray[pos.x + i, pos.y].ship != shipList[5])
-                {
-                    //x, y byttes om i array... x = y, y = x
-                    temp = true;
-                }
-                else
-                {
-                    temp = false;
-                }
-            }
-            return temp;
-        }
-
         public bool ChangeTurn()
         {
             if (counter < shipList.Count / 2)
@@ -152,6 +98,51 @@ namespace BattleMyShip
             else
             {
                 return false;
+            }
+        }
+
+        private bool IsSpotEmpty(Map map)
+        {
+            for (int i = 0; i < shipList[counter].ShipLength; i++)
+            {
+                if (rotate == true)
+                {
+                    if (map.MapArray[pos.x + i, pos.y].ship != null)
+                    {
+                        if (map.MapArray[pos.x + i, pos.y].ship != shipList[counter])
+                            return false;
+
+                    }
+                }
+                else if (rotate == false)
+                {
+                    if (map.MapArray[pos.x, pos.y + i].ship != null)
+                    {
+                        if (map.MapArray[pos.x, pos.y + i].ship != shipList[counter])
+                            return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        public void CheckOutOfBounds(Map map)
+        {
+            if (rotate == false && pos.y <= 0)
+            {
+                pos.y += 1;
+            }
+            else if (rotate == false && pos.y + shipList[counter].ShipLength >= map.Height)
+            {
+                pos.y -= 1;
+            }
+            else if (rotate == false && pos.x <= 0)
+            {
+                pos.x += 1;
+            }
+            else if (rotate == false && pos.x >= 9)
+            {
+                pos.x -= 1;
             }
         }
     }

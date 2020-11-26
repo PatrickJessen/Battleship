@@ -10,6 +10,7 @@ namespace BattleMyShip
     {
         Map playerOneMap = new Map(10, 20);
         Map playerTwoMap = new Map(10, 20);
+        Map map = new Map(10, 20);
         GameLogic logic = new GameLogic();
 
         public void GameLoop()
@@ -21,6 +22,7 @@ namespace BattleMyShip
                 PlayerTwo();
             }
             DrawMap(playerOneMap);
+            Console.WriteLine();
             DrawMap(playerTwoMap);
             Console.ReadLine();
         }
@@ -33,6 +35,7 @@ namespace BattleMyShip
                 Console.WriteLine("Player 1");
                 DrawMap(playerOneMap);
                 logic.HandleKeys(playerOneMap);
+                //logic.CheckOutOfBounds(playerOneMap);
             }
         }
 
@@ -44,6 +47,7 @@ namespace BattleMyShip
                 Console.WriteLine("Player 2");
                 DrawMap(playerTwoMap);
                 logic.HandleKeys(playerTwoMap);
+                //logic.CheckOutOfBounds(playerTwoMap);
             }
         }
 
