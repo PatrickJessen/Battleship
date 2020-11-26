@@ -19,9 +19,5 @@ namespace BattleMyShip
             return false;
         }
 
-        public Task Testing()
-        {
-            
-        }
     }
 }
