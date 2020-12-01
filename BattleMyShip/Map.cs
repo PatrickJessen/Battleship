@@ -35,7 +35,6 @@ namespace BattleMyShip
                     if (MapArray[x, y].isPlaced == false)
                     {
                         MapArray[x, y].ship = null;
-                        //map.MapArray[x, y].MapField = ".";
                     }
                 }
             }

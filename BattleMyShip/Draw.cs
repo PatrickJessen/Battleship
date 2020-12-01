@@ -35,11 +35,11 @@ namespace BattleMyShip
             Console.ResetColor();
             Console.WriteLine("Player 1");
             DrawMap(playerOneMap);
-            logic.Test(playerOneMap);
-            //logic.HandleKeys(playerOneMap);
-            logic.CheckOutOfBounds(playerOneMap);
-            playerOneMap.ClearMap();
-            Console.SetCursorPosition(0, 0);
+            //logic.Test(playerOneMap);
+            logic.HandleKeys(playerOneMap);
+            //logic.CheckOutOfBounds(playerOneMap);
+            //playerOneMap.ClearMap();
+            
         }
 
         public void DrawMap(Map playerMap)

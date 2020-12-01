@@ -10,10 +10,10 @@ namespace BattleMyShip
     class GameLogic
     {
         AI ai = new AI();
-        bool rotate;
-        ShipPosition pos = new ShipPosition();
+        Player player = new Player();
         public List<Ship> shipList = new List<Ship>();
         public int counter = 0;
+        public bool isShipPlaced = false;
         public void AddShipToList()
         {
             shipList.Add(new Ship(5, 'H', ConsoleColor.Red));
@@ -21,35 +21,6 @@ namespace BattleMyShip
             shipList.Add(new Ship(3, 'D', ConsoleColor.Green));
             shipList.Add(new Ship(3, 'U', ConsoleColor.Yellow));
             shipList.Add(new Ship(2, 'P', ConsoleColor.Magenta));
-        }
-        private bool PlaceShip(Map map, bool isPlaced)
-        {
-            map.ClearMap();
-            //for (int i = 0; i < shipList[counter].ShipLength; i++)
-            //{
-            //    if (rotate == true)
-            //    {
-            //        //x, y byttes om i array... x = y, y = x
-            //        map.MapArray[pos.x + i, pos.y].isPlaced = isPlaced;
-            //        map.MapArray[pos.x + i, pos.y].ship = shipList[counter];
-            //    }
-            //    else if (rotate == false)
-            //    {
-            //        //x, y byttes om i array... x = y, y = x
-            //        map.MapArray[pos.x, pos.y + i].isPlaced = isPlaced;
-            //        map.MapArray[pos.x, pos.y + i].ship = shipList[counter];
-            //    }
-            //    else
-            //    {
-            //        isPlaced = false;
-            //    }
-            //}
-            //ai.PlaceRandomShips(map, shipList, counter, isPlaced);
-            if (isPlaced == true)
-            {
-                counter++;
-            }
-            return false;
         }
 
         public void Test(Map map)
@@ -59,6 +30,7 @@ namespace BattleMyShip
             {
                 counter++;
             }
+            Console.SetCursorPosition(0, 0);
         }
 
         public void HandleKeys(Map map)
@@ -67,99 +39,58 @@ namespace BattleMyShip
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
-                    Console.SetCursorPosition(pos.y, pos.x);
-                    pos.x--;
-                    if (IsSpotEmpty(map))
-                        PlaceShip(map, false);
+                    //Console.SetCursorPosition(player.pos.y, player.pos.x);
+                    player.pos.x--;
+                    ChangeTurn(map);
                     break;
                 case ConsoleKey.DownArrow:
-                    Console.SetCursorPosition(pos.y, pos.x);
-                    pos.x++;
-                    if (IsSpotEmpty(map))
-                        PlaceShip(map, false);
+                    //Console.SetCursorPosition(player.pos.y, player.pos.x);
+                    player.pos.x++;
+                    ChangeTurn(map);
                     break;
                 case ConsoleKey.LeftArrow:
-                    Console.SetCursorPosition(pos.y, pos.x);
-                    pos.y--;
-                    if (IsSpotEmpty(map))
-                        PlaceShip(map, false);
+                    //Console.SetCursorPosition(player.pos.y, player.pos.x);
+                    player.pos.y--;
+                    ChangeTurn(map);
                     break;
                 case ConsoleKey.RightArrow:
-                    Console.SetCursorPosition(pos.y, pos.x);
-                    pos.y++;
-                    if (IsSpotEmpty(map))
-                        PlaceShip(map, false);
+                    //Console.SetCursorPosition(player.pos.y, player.pos.x);
+                    player.pos.y++;
+                    ChangeTurn(map);
                     break;
                 case ConsoleKey.B:
-                    rotate = true;
+                    player.rotate = true;
                     break;
                 case ConsoleKey.N:
-                    rotate = false;
+                    player.rotate = false;
                     break;
                 case ConsoleKey.Enter:
-                    if (IsSpotEmpty(map))
-                        PlaceShip(map, true);
+                    PlaceShip(map);
                     break;
             }
             Console.SetCursorPosition(0, 0);
             
         }
 
-        private bool IsSpotEmpty(Map map)
+        public void ChangeTurn(Map map)
         {
-            for (int i = 0; i < shipList[counter].ShipLength; i++)
+            if (isShipPlaced == false)
             {
-                if (rotate == true)
-                {
-                    if (map.MapArray[pos.x + i, pos.y].ship != null)
-                    {
-                        if (map.MapArray[pos.x + i, pos.y].ship != shipList[counter])
-                            return false;
-
-                    }
-                }
-                else if (rotate == false)
-                {
-                    if (map.MapArray[pos.x, pos.y + i].ship != null)
-                    {
-                        if (map.MapArray[pos.x, pos.y + i].ship != shipList[counter])
-                            return false;
-                    }
-                }
-            }
-            return true;
-        }
-
-        public void CheckOutOfBounds(Map map)
-        {
-            try
-            {
-                if (rotate == false && pos.y <= 0)
-                {
-                    pos.y += 1;
-                }
-                else if (rotate == false && pos.y + shipList[counter].ShipLength >= map.Height)
-                {
-                    pos.y -= 1;
-                }
-                else if (rotate == false && pos.x <= 0)
-                {
-                    pos.x += 1;
-                }
-                else if (rotate == false && pos.x >= 9)
-                {
-                    pos.x -= 1;
-                }
-            }
-            catch
-            {
-                Console.WriteLine("test");
+                if (player.IsSpotEmpty(map, shipList, counter))
+                    player.PlaceShip(map, shipList, counter, false);
             }
         }
 
-        public void ShootShip(Map map)
+        public void PlaceShip(Map map)
         {
-
+            if (isShipPlaced == false)
+            {
+                if (player.IsSpotEmpty(map, shipList, counter))
+                {
+                    player.PlaceShip(map, shipList, counter, true);
+                    counter++;
+                }
+            }
         }
     }
 }

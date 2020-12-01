@@ -16,9 +16,9 @@ namespace BattleMyShip
         public void PlaceRandomShips(Map map, List<Ship> ships, int counter)
         {
             isRotated = rotate.Next(0, 2);
-            placePosX = rand.Next(0, 9 - ships[counter].ShipLength);
-            placePosY = rand.Next(ships[counter].ShipLength, 19 - ships[counter].ShipLength);
-            Random newrand = new Random();
+            placePosX = rand.Next(0, 8);
+            placePosY = rand.Next(0, 18 - ships[counter].ShipLength);
+            map.ClearMap();
             for (int i = 0; i < ships[counter].ShipLength; i++)
             {
                 if (IsSpotEmpty(map, ships, counter, placePosX, placePosY, isRotated))
