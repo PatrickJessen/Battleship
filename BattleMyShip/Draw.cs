@@ -9,7 +9,6 @@ namespace BattleMyShip
     class Draw
     {
         Map playerOneMap = new Map(10, 20);
-        Map playerTwoMap = new Map(10, 20);
         Map map = new Map(10, 20);
         GameLogic logic = new GameLogic();
 
@@ -21,44 +20,26 @@ namespace BattleMyShip
                 if (logic.counter < logic.shipList.Count)
                 {
                     PlayerOne();
-                    PlayerTwo();
                 }
                 else
                 {
                     DrawMap(playerOneMap);
                     Console.WriteLine();
-                    DrawMap(playerTwoMap);
                     Console.ReadLine();
-                }
-                if (true)
-                {
-
                 }
             }
         }
 
         public void PlayerOne()
         {
-            if (logic.ChangeTurn() == true)
-            {
-                Console.ResetColor();
-                Console.WriteLine("Player 1");
-                DrawMap(playerOneMap);
-                logic.HandleKeys(playerOneMap);
-                //logic.CheckOutOfBounds(playerOneMap);
-            }
-        }
-
-        private void PlayerTwo()
-        {
-            if (logic.ChangeTurn() == false)
-            {
-                Console.ResetColor();
-                Console.WriteLine("Player 2");
-                DrawMap(playerTwoMap);
-                logic.HandleKeys(playerTwoMap);
-                //logic.CheckOutOfBounds(playerTwoMap);
-            }
+            Console.ResetColor();
+            Console.WriteLine("Player 1");
+            DrawMap(playerOneMap);
+            logic.Test(playerOneMap);
+            //logic.HandleKeys(playerOneMap);
+            logic.CheckOutOfBounds(playerOneMap);
+            playerOneMap.ClearMap();
+            Console.SetCursorPosition(0, 0);
         }
 
         public void DrawMap(Map playerMap)
