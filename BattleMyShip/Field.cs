@@ -9,7 +9,7 @@ namespace BattleMyShip
     class Field
     {
         public string MapField { get; set; } = "~";
-        public Ship ship { get; set; }
-        public bool isPlaced { get; set; }
+        public Ship Ships { get; set; }
+        public bool IsPlaced { get; set; }
     }
 }

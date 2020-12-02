@@ -18,7 +18,7 @@ namespace BattleMyShip
             isRotated = rotate.Next(0, 2);
             placePosX = rand.Next(0, 9 - ships[counter].ShipLength);
             placePosY = rand.Next(ships[counter].ShipLength, 19 - ships[counter].ShipLength);
-            Random newrand = new Random();
+            //map.ClearMap();
             for (int i = 0; i < ships[counter].ShipLength; i++)
             {
                 if (IsSpotEmpty(map, ships, counter, placePosX, placePosY, isRotated))
@@ -26,14 +26,14 @@ namespace BattleMyShip
                     if (isRotated == 1)
                     {
                         //x, y byttes om i array... x = y, y = x
-                        map.MapArray[placePosX + i, placePosY].isPlaced = true;
-                        map.MapArray[placePosX + i, placePosY].ship = ships[counter];
+                        map.MapArray[placePosX + i, placePosY].IsPlaced = true;
+                        map.MapArray[placePosX + i, placePosY].Ships = ships[counter];
                     }
                     else if (isRotated == 0)
                     {
                         //x, y byttes om i array... x = y, y = x
-                        map.MapArray[placePosX, placePosY + i].isPlaced = true;
-                        map.MapArray[placePosX, placePosY + i].ship = ships[counter];
+                        map.MapArray[placePosX, placePosY + i].IsPlaced = true;
+                        map.MapArray[placePosX, placePosY + i].Ships = ships[counter];
                     }
                 }
             }
@@ -45,18 +45,18 @@ namespace BattleMyShip
             {
                 if (rotate == 1)
                 {
-                    if (map.MapArray[x + i, y].ship != null)
+                    if (map.MapArray[x + i, y].Ships != null)
                     {
-                        if (map.MapArray[x + i, y].ship != ships[counter])
+                        if (map.MapArray[x + i, y].Ships != ships[counter])
                             return false;
 
                     }
                 }
                 else if (rotate == 0)
                 {
-                    if (map.MapArray[x, y + i].ship != null)
+                    if (map.MapArray[x, y + i].Ships != null)
                     {
-                        if (map.MapArray[x, y + i].ship != ships[counter])
+                        if (map.MapArray[x, y + i].Ships != ships[counter])
                             return false;
                     }
                 }

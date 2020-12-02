@@ -32,10 +32,13 @@ namespace BattleMyShip
             {
                 for (int y = 0; y < MapArray.GetLength(1); y++)
                 {
-                    if (MapArray[x, y].isPlaced == false)
+                    if (MapArray[x, y].IsPlaced == false)
                     {
-                        MapArray[x, y].ship = null;
-                        //map.MapArray[x, y].MapField = ".";
+                        MapArray[x, y].Ships = null;
+                        if (MapArray[x, y].MapField == "x")
+                        {
+                            MapArray[x, y].MapField = "~";
+                        }
                     }
                 }
             }
