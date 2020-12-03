@@ -68,16 +68,16 @@ namespace BattleMyShip
             return true;
         }
 
-        public void ShootShip(Map map, AI ai, bool isPlaced, int x, int y)
+        public void ShootShip(Map map, AI ai, bool isPlaced, int x, int y, List<Ship> shipList)
         {
             //if (map.MapArray[navPos.x, navPos.y].MapField == map.MapArray[pos.x, pos.y].Ships.ShipCharacter.ToString())
             //{
             map.ClearMap();
+            HitShip(map, shipList, isPlaced);
             if (HasBeenShot(map))
             {
                 map.MapArray[x, y].IsPlaced = isPlaced;
                 map.MapArray[x, y].MapField = "x";
-                HitShip(map, ai);
             }
             //}
             //else
@@ -87,17 +87,22 @@ namespace BattleMyShip
             //}
         }
 
-        public void HitShip(Map map, AI ai)
+        public void HitShip(Map map, List<Ship> shipList, bool isPlaced)
         {
-            if (map.MapArray[ai.placePosX, ai.placePosY].Ships != null)
+            for (int i = 0; i < shipList.Count; i++)
             {
-                map.MapArray[navPos.x, navPos.y].MapField = "o";
+                if (map.MapArray[pos.x, pos.y].Ships == shipList[i] && map.MapArray[pos.x, pos.y].IsPlaced == isPlaced)
+                {
+                    map.MapArray[pos.x, pos.y].MapField = "o";
+                    map.MapArray[pos.x, pos.y].Ships = null;
+                }
+                Console.WriteLine(map.MapArray[pos.x, pos.y].MapField);
             }
         }
 
         private bool HasBeenShot(Map map)
         {
-            if (map.MapArray[pos.x, pos.y].MapField != "x")
+            if (map.MapArray[pos.x, pos.y].MapField != "x" && map.MapArray[pos.x, pos.y].MapField != "o" && map.MapArray[pos.x, pos.y].Ships == null) //  && map.MapArray[pos.x, pos.y].Ships == null && map.MapArray[pos.x, pos.y].IsPlaced == false
             {
                 return true;
             }

@@ -39,6 +39,17 @@ namespace BattleMyShip
             }
         }
 
+        private void HideShips(Map map)
+        {
+            for (int x = 0; x < map.MapArray.GetLength(0); x++)
+            {
+                for (int y = 0; y < map.MapArray.GetLength(1); y++)
+                {
+                    map.MapArray[x, y].Ships = null;
+                }
+            }
+        }
+
         public bool IsSpotEmpty(Map map, List<Ship> ships, int counter, int x, int y, int rotate)
         {
             for (int i = 0; i < ships[counter].ShipLength; i++)

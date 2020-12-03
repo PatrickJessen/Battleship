@@ -9,10 +9,10 @@ namespace BattleMyShip
     class Ship
     {
         public int ShipLength { get; set; }
-        public char ShipCharacter { get; set; }
+        public string ShipCharacter { get; set; }
         public ConsoleColor ShipColor { get; set; }
         
-        public Ship(int shipLength, char ShipCharacter, ConsoleColor shipColor)
+        public Ship(int shipLength, string ShipCharacter, ConsoleColor shipColor)
         {
             this.ShipLength = shipLength;
             this.ShipCharacter = ShipCharacter;

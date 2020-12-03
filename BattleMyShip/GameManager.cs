@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace BattleMyShip
 {
-    class GameLogic
+    class GameManager
     {
         AI ai = new AI();
         Player player = new Player();
@@ -17,19 +17,19 @@ namespace BattleMyShip
         public int aiCounter = 0;
         public void AddPlayerShips()
         {
-            playerShips.Add(new Ship(5, 'H', ConsoleColor.Red));
-            playerShips.Add(new Ship(4, 'S', ConsoleColor.Blue));
-            playerShips.Add(new Ship(3, 'D', ConsoleColor.Green));
-            playerShips.Add(new Ship(3, 'U', ConsoleColor.Yellow));
-            playerShips.Add(new Ship(2, 'P', ConsoleColor.Magenta));
+            playerShips.Add(new Ship(5, "H", ConsoleColor.Red));
+            playerShips.Add(new Ship(4, "S", ConsoleColor.Blue));
+            playerShips.Add(new Ship(3, "D", ConsoleColor.Green));
+            playerShips.Add(new Ship(3, "U", ConsoleColor.Yellow));
+            playerShips.Add(new Ship(2, "P", ConsoleColor.Magenta));
         }
         public void AddAIShips()
         {
-            AIShips.Add(new Ship(5, 'H', ConsoleColor.Red));
-            AIShips.Add(new Ship(4, 'S', ConsoleColor.Blue));
-            AIShips.Add(new Ship(3, 'D', ConsoleColor.Green));
-            AIShips.Add(new Ship(3, 'U', ConsoleColor.Yellow));
-            AIShips.Add(new Ship(2, 'P', ConsoleColor.Magenta));
+            AIShips.Add(new Ship(5, "1", ConsoleColor.White));
+            AIShips.Add(new Ship(4, "2", ConsoleColor.White));
+            AIShips.Add(new Ship(3, "3", ConsoleColor.White));
+            AIShips.Add(new Ship(3, "4", ConsoleColor.White));
+            AIShips.Add(new Ship(2, "5", ConsoleColor.White));
         }
 
         public void AIManager(Map map)
@@ -112,7 +112,7 @@ namespace BattleMyShip
             {
                 //player.pos.x = 0;
                 //player.pos.y = 0;
-                player.ShootShip(map, ai, false, player.pos.x, player.pos.y);
+                player.ShootShip(map, ai, false, player.pos.x, player.pos.y, AIShips);
             }
         }
 
@@ -128,7 +128,7 @@ namespace BattleMyShip
             }
             else
             {
-                player.ShootShip(map, ai, true, player.pos.x, player.pos.y);
+                player.ShootShip(map, ai, true, player.pos.x, player.pos.y, AIShips);
             }
         }
 

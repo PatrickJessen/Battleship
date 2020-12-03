@@ -11,7 +11,7 @@ namespace BattleMyShip
         Map playerOneMap = new Map(10, 20);
         Map AIMap = new Map(10, 20);
         Map map = new Map(10, 20);
-        GameLogic logic = new GameLogic();
+        GameManager logic = new GameManager();
 
         public void GameLoop()
         {
@@ -36,8 +36,8 @@ namespace BattleMyShip
             else
             {
                 Console.WriteLine("Shoot AI Ship");
-                DrawMap(map);
-                logic.HandleKeys(map);
+                DrawMap(AIMap);
+                logic.HandleKeys(AIMap);
             }
         }
 
@@ -46,7 +46,7 @@ namespace BattleMyShip
 
             //Console.WriteLine("AI");
             logic.AIManager(AIMap);
-            DrawMap(AIMap);
+            //DrawMap(AIMap);
             
         }
 
